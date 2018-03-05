@@ -1,6 +1,6 @@
 name 'aws_splunk'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Perficient Inc'
+maintainer_email 'devops@perficient.com'
 license 'All Rights Reserved'
 description 'Installs/Configures aws_splunk'
 long_description 'Installs/Configures aws_splunk'
@@ -18,3 +18,5 @@ chef_version '>= 12.1' if respond_to?(:chef_version)
 # a Supermarket.
 #
 # source_url 'https://github.com/<insert_org_here>/aws_splunk'
+
+depends 'chef-splunk'

@@ -1,7 +1,7 @@
 #
 # Cookbook:: aws_splunk
-# Recipe:: default
+# Recipe:: server
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
-include_recipe 'aws_splunk::default'
+include_recipe 'chef-splunk::server'

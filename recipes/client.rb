@@ -62,3 +62,18 @@ edit_resource!(:template, "#{splunk_dir}/etc/system/local/outputs.conf") do
   )
   notifies :restart, 'service[splunk]'
 end
+
+directory "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local" do
+  action :create
+  mode 755
+  owner node[:splunk][:user][:username]
+  group node[:splunk][:user][:username]
+end
+
+template "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local/input.conf" do
+  source "SplunkUniversalForwarder/local/input.conf.erb"
+  mode 755
+  owner node[:splunk][:user][:username]
+  group node[:splunk][:user][:username]
+  notifies :restart, 'service[splunk]'
+end

@@ -70,8 +70,8 @@ directory "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local" do
   group node[:splunk][:user][:username]
 end
 
-template "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local/input.conf" do
-  source "SplunkUniversalForwarder/local/input.conf.erb"
+template "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local/inputs.conf" do
+  source "SplunkUniversalForwarder/local/inputs.conf.erb"
   mode 755
   owner node[:splunk][:user][:username]
   group node[:splunk][:user][:username]

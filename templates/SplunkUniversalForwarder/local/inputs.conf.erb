@@ -1,3 +1,6 @@
-[monitor:///var/log/syslog]
+<% @monitors.each do |monitor| %>
+[monitor:<%= monitor[:path] %>]
 _TCP_ROUTING = *
-index = default
+index = <%= monitor[:index] %>
+
+<% end %>

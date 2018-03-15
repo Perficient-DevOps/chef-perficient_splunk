@@ -40,7 +40,8 @@ end
 # end.join(', ')
 
 ip_server_list = splunk_servers.map do |s|
-  "#{s[:cloud][:public_ipv4]}:#{s['splunk']['receiver_port']}"
+  public_address = s.key?( :cloud ) ? s[:cloud][:public_ipv4] : s[:fqdn]
+  "#{public_address}:#{s['splunk']['receiver_port']}"
 end.join(', ')
 
 # template "#{splunk_dir}/etc/system/local/outputs.conf" do
@@ -76,4 +77,7 @@ template "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local/inputs.conf" do
   owner node[:splunk][:user][:username]
   group node[:splunk][:user][:username]
   notifies :restart, 'service[splunk]'
+  variables(
+    monitors: node[:splunk][:local_monitors]
+  )
 end

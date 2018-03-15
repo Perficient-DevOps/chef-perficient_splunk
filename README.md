@@ -6,10 +6,10 @@ Wrapper cookbook to provide some updated defaults for how we will use the `chef-
 
 Configure your roles and environments:
 
-    knife role create splunk_server
-    knife role create splunk_forwarder
-    knife environment create splunk_dev
-    knife environment create splunk_prod
+    knife role create splunk-server
+    knife role create splunk-forwarder
+    knife environment create splunk-dev
+    knife environment create splunk-prod
 
 Required the use of data vault for storing bootstrapping values otherwise it fails with HTTP 404 errors unceremoniously.
 

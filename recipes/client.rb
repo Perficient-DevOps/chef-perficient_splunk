@@ -1,5 +1,5 @@
 #
-# Cookbook:: aws_splunk
+# Cookbook:: perficient_splunk
 # Recipe:: client
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
@@ -21,7 +21,7 @@ end
 include_recipe 'chef-splunk::client'
 
 ### FIXME: This seems to only exist on the server...?
-delete_resource( :template, "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/default/limits.conf")
+delete_resource( :template, "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/default/limits.conf" )
 ###
 
 # Override the say the outputs are created to avoid using the server nodes
@@ -35,6 +35,7 @@ splunk_servers = search(
   a.name <=> b.name
 end
 
+## chef-splunk::client
 # server_list = splunk_servers.map do |s|
 #   "#{s['fqdn'] || s['ipaddress']}:#{s['splunk']['receiver_port']}"
 # end.join(', ')
@@ -44,6 +45,7 @@ ip_server_list = splunk_servers.map do |s|
   "#{public_address}:#{s['splunk']['receiver_port']}"
 end.join(', ')
 
+## chef-splunk::client
 # template "#{splunk_dir}/etc/system/local/outputs.conf" do
 #   source 'outputs.conf.erb'
 #   mode '644'
@@ -54,7 +56,7 @@ end.join(', ')
 #   notifies :restart, 'service[splunk]'
 # end
 
-edit_resource!(:template, "#{splunk_dir}/etc/system/local/outputs.conf") do
+edit_resource!( :template, "#{splunk_dir}/etc/system/local/outputs.conf" ) do
   source 'outputs.conf.erb'
   mode '644'
   variables(

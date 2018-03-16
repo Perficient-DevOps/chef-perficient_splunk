@@ -1,12 +1,12 @@
 #
-# Cookbook:: aws_splunk
+# Cookbook:: perficient_splunk
 # Spec:: default
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'aws_splunk::client' do
+describe 'perficient_splunk::client' do
 
   let(:secrets) do
   {
@@ -38,12 +38,10 @@ describe 'aws_splunk::client' do
     end
   end
 
-  let(:chef_run) do
-    chef_run_init.converge(described_recipe)
-  end
+
 
   before(:each) do
-    allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).and_return(true)
+    #allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).and_return(true)
     stub_command("/opt/splunk/bin/splunk enable listen 9997 -auth '#{secrets['splunk__default']['auth']}'").and_return(true)
     # Stub TCP Socket to immediately fail connection to 9997 and raise error without waiting for entire default timeout
     allow(TCPSocket).to receive(:new).with(anything, '9997') { raise Errno::ETIMEDOUT }
@@ -52,6 +50,21 @@ describe 'aws_splunk::client' do
   context 'When all attributes are default, on Ubuntu 16.04' do
     let(:platform) { 'Ubuntu' }
     let(:platform_version) { '16.04' }
+
+    let(:chef_run) do
+      chef_run_init.converge(described_recipe)
+    end
+
+    it 'creates the local system directory' do # ~FC005
+      expect(chef_run).to create_directory('/opt/splunkforwarder/etc/apps/SplunkUniversalForwarder/local').with(
+        'owner' => 'splunk',
+        'group' => 'splunk'
+      )
+    end
+
+    it 'creates an outputs template in the local system directory' do
+      expect(chef_run).to create_template('/opt/splunkforwarder/etc/apps/SplunkUniversalForwarder/local/inputs.conf')
+    end
 
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error

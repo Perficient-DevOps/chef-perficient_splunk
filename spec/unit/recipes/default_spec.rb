@@ -1,12 +1,12 @@
 #
-# Cookbook:: aws_splunk
+# Cookbook:: perficient_splunk
 # Spec:: default
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'aws_splunk::default' do
+describe 'perficient_splunk::default' do
 #  include ChefVault::TestFixtures.rspec_shared_context(true)
 
   let(:secrets) do

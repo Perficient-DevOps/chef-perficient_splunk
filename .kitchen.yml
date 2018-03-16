@@ -1,6 +1,8 @@
 ---
 driver:
-  name: vagrant
+#  name: vagrant
+  name: docker
+  use_sudo: false
 
 provisioner:
   name: chef_zero
@@ -21,7 +23,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[aws_splunk::default]
+      - recipe[perficient_splunk::default]
     verifier:
       inspec_tests:
         - test/smoke/default
@@ -32,7 +34,7 @@ suites:
 
   - name: server
     run_list:
-      - recipe[aws_splunk::server]
+      - recipe[perficient_splunk::server]
     verifier:
       inspec_tests:
         - test/smoke/default
@@ -43,7 +45,7 @@ suites:
 
   - name: client
     run_list:
-      - recipe[aws_splunk::client]
+      - recipe[perficient_splunk::client]
     verifier:
       inspec_tests:
         - test/smoke/default

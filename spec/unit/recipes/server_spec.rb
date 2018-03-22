@@ -7,23 +7,22 @@
 require 'spec_helper'
 
 describe 'perficient_splunk::server' do
-
   let(:secrets) do
-  {
-    'splunk__default' => {
-      'id' => 'splunk__default',
-      'auth' => 'admin:notarealpassword',
-      'secret' => 'notarealsecret',
-    },
-  }
+    {
+      'splunk__default' => {
+        'id' => 'splunk__default',
+        'auth' => 'admin:notarealpassword',
+        'secret' => 'notarealsecret',
+      },
+    }
   end
 
   let(:chef_run_init) do
-    ChefSpec::ServerRunner.new(platform: platform, version: platform_version ) do |node, server|
+    ChefSpec::ServerRunner.new(platform: platform, version: platform_version) do |node, server|
       node.override['dev_mode'] = true
       node.override['splunk']['is_server'] = true
       # Populate mock vault data bag to the server
-      server.create_data_bag('vault', secrets )
+      server.create_data_bag('vault', secrets)
     end
   end
 
@@ -48,7 +47,7 @@ describe 'perficient_splunk::server' do
   end
 
   context 'When all attributes are default, on CentOS 7.4.1708' do
-    let(:platform) { 'CentOS'}
+    let(:platform) { 'CentOS' }
     let(:platform_version) { '7.4.1708' }
 
     it 'converges successfully' do

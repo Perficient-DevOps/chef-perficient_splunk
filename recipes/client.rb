@@ -21,7 +21,7 @@ end
 include_recipe 'chef-splunk::client'
 
 ### FIXME: This seems to only exist on the server...?
-delete_resource( :template, "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/default/limits.conf" )
+delete_resource(:template, "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/default/limits.conf")
 ###
 
 # Override the say the outputs are created to avoid using the server nodes
@@ -41,7 +41,7 @@ end
 # end.join(', ')
 
 ip_server_list = splunk_servers.map do |s|
-  public_address = s.key?( :cloud ) ? s[:cloud][:public_ipv4] : s[:fqdn]
+  public_address = s.key?(:cloud) ? s[:cloud][:public_ipv4] : s[:fqdn]
   "#{public_address}:#{s['splunk']['receiver_port']}"
 end.join(', ')
 
@@ -56,7 +56,7 @@ end.join(', ')
 #   notifies :restart, 'service[splunk]'
 # end
 
-edit_resource!( :template, "#{splunk_dir}/etc/system/local/outputs.conf" ) do
+edit_resource!(:template, "#{splunk_dir}/etc/system/local/outputs.conf") do
   source 'outputs.conf.erb'
   mode '644'
   variables(
@@ -74,7 +74,7 @@ directory "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local" do
 end
 
 template "#{splunk_dir}/etc/apps/SplunkUniversalForwarder/local/inputs.conf" do
-  source "SplunkUniversalForwarder/local/inputs.conf.erb"
+  source 'SplunkUniversalForwarder/local/inputs.conf.erb'
   mode 755
   owner node[:splunk][:user][:username]
   group node[:splunk][:user][:username]

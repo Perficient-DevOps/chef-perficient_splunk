@@ -1,5 +1,5 @@
 #
-# Cookbook:: aws_splunk
+# Cookbook:: perficient_splunk
 # Recipe:: default
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.

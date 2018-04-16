@@ -1,4 +1,4 @@
-# aws_splunk
+# perficient_splunk
 
 Wrapper cookbook to provide some updated defaults for how we will use the `chef-splunk` cookbook.
 
